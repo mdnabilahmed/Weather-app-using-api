@@ -1,10 +1,3 @@
-const images = [
-  "./images/sunny.png",
-  "./images/rain.png",
-  "./images/cloud.png",
-  "./images/thunder.png",
-];
-
 async function city(name) {
   let response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=58a86effaffcce194dae905c36101345`
@@ -37,4 +30,4 @@ async function city(name) {
   }
 }
 
-city("Ichhāwar");
+city("giridih");
