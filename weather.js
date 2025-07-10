@@ -6,10 +6,9 @@ async function city(name) {
 
     const data = await response.json();
 
-    // Check for invalid city (API sends cod = "404")
     if (!response.ok || data.cod === "404" || !data.main) {
       alert("No city named like this found!!!!");
-      return; // Stop here if error
+      return;
     }
 
     document.querySelector(".city").innerHTML = name.toUpperCase();
