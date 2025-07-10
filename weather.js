@@ -15,7 +15,7 @@ async function city(name) {
   let value = data.weather[0].main;
   let wedh = document.getElementsByClassName("weather-icon")[0];
 
-  console.log(value);
+  // console.log(value);
 
   if (value === "Clouds") {
     wedh.src = "images/clouds.png";
@@ -30,4 +30,11 @@ async function city(name) {
   }
 }
 
-city("giridih");
+const input = document.querySelector(".input");
+const button = document.querySelector(".btn");
+
+button.addEventListener("click", () => {
+  const value = input.value;
+  console.log(value);
+  city(value);
+});
