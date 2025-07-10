@@ -1,32 +1,42 @@
 async function city(name) {
-  let response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=58a86effaffcce194dae905c36101345`
-  );
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=58a86effaffcce194dae905c36101345`
+    );
 
-  let data = await response.json();
+    const data = await response.json();
 
-  document.querySelector(".city").innerHTML = name.toUpperCase();
-  document.querySelector(".temp").innerHTML =
-    Math.round(data.main.temp - 273) + "°C";
-  document.getElementsByClassName("humidity")[0].innerHTML = data.main.humidity;
-  document.getElementsByClassName("wind")[0].innerHTML =
-    (data.wind.speed * 3.6).toFixed(1) + " KM/h";
+    // Check for invalid city (API sends cod = "404")
+    if (!response.ok || data.cod === "404" || !data.main) {
+      alert("No city named like this found!!!!");
+      return; // Stop here if error
+    }
 
-  let value = data.weather[0].main;
-  let wedh = document.getElementsByClassName("weather-icon")[0];
+    document.querySelector(".city").innerHTML = name.toUpperCase();
+    document.querySelector(".temp").innerHTML =
+      Math.round(data.main.temp - 273) + "°C";
+    document.getElementsByClassName("humidity")[0].innerHTML =
+      data.main.humidity + "%";
+    document.getElementsByClassName("wind")[0].innerHTML =
+      (data.wind.speed * 3.6).toFixed(1) + " KM/h";
 
-  // console.log(value);
+    let value = data.weather[0].main;
+    let wedh = document.getElementsByClassName("weather-icon")[0];
 
-  if (value === "Clouds") {
-    wedh.src = "images/clouds.png";
-  } else if (value === "Clear") {
-    wedh.src = "images/clear.png";
-  } else if (value === "Rain") {
-    wedh.src = "images/rain.png";
-  } else if (value === "Wind") {
-    wedh.src = "images/wind.png";
-  } else {
-    wedh.src = "images/snow.png";
+    if (value === "Clouds") {
+      wedh.src = "images/clouds.png";
+    } else if (value === "Clear") {
+      wedh.src = "images/clear.png";
+    } else if (value === "Rain") {
+      wedh.src = "images/rain.png";
+    } else if (value === "Wind") {
+      wedh.src = "images/wind.png";
+    } else {
+      wedh.src = "images/snow.png";
+    }
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("try again.");
   }
 }
 
@@ -34,7 +44,10 @@ const input = document.querySelector(".input");
 const button = document.querySelector(".btn");
 
 button.addEventListener("click", () => {
-  const value = input.value;
-  console.log(value);
-  city(value);
+  const value = input.value.trim();
+  if (value) {
+    city(value);
+  } else {
+    alert(" Please enter a city name");
+  }
 });
