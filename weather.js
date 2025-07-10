@@ -58,6 +58,6 @@ button.addEventListener("click", searchCity);
 
 input.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    searchCity();
+    searchCity(); 
   }
 });
