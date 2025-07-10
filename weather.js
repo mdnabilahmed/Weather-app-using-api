@@ -42,11 +42,22 @@ async function city(name) {
 const input = document.querySelector(".input");
 const button = document.querySelector(".btn");
 
-button.addEventListener("click", () => {
+
+function searchCity() {
   const value = input.value.trim();
   if (value) {
     city(value);
   } else {
-    alert(" Please enter a city name");
+    alert("❗ Please enter a city name");
+  }
+}
+
+
+button.addEventListener("click", searchCity);
+
+
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    searchCity();
   }
 });
