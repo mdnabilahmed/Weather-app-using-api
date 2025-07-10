@@ -10,7 +10,7 @@ async function city(name) {
     Math.round(data.main.temp - 273) + "°C";
   document.getElementsByClassName("humidity")[0].innerHTML = data.main.humidity;
   document.getElementsByClassName("wind")[0].innerHTML =
-    data.wind.speed * 3.6 + " KM/h";
+    (data.wind.speed * 3.6).toFixed(1) + " KM/h";
 
   let value = data.weather[0].main;
   let wedh = document.getElementsByClassName("weather-icon")[0];
